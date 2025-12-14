@@ -8,6 +8,8 @@ import sistema_crafteo.objeto.Receta;
 
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class SistemaCrafteo {
     private Set<Item> itemsRegistrados;
@@ -30,16 +32,13 @@ public class SistemaCrafteo {
         if (!item.esCrafteable()) {
             return null;
         }
-        List<Map<Item, Integer>> ret = new LinkedList<>();
-        List<Map<Item, Integer>> ingredientesPorReceta = item.getIngredientesTodos();
 
-        for (Map<Item, Integer> map : ingredientesPorReceta) {
-            Map<Item, Integer> interseccion = OperacionesMap.restarTodo(map, inventario.getItems());
-            interseccion = OperacionesMap.quitarKeysConValorCero(interseccion);
-            ret.add(interseccion);
-        }
-
-        return ret;
+        return item.getIngredientesTodos().stream()
+                .map(receta -> {
+                    Map<Item, Integer> interseccion = OperacionesMap.restarTodo(receta, inventario.getItems());
+                    return OperacionesMap.quitarKeysConValorCero(interseccion);
+                })
+                .collect(Collectors.toList());
     }
 
     public List<Map<Item, Integer>> getIngredientesBasicosFaltantesTodos(Item item, Inventario inventario) {
@@ -191,21 +190,10 @@ public class SistemaCrafteo {
     }
 
     public Map<Item, Integer> getBasicosFaltantesMinimos(Item item, Inventario inv) {
-        Map<Item, Integer> mejor = new HashMap<>();
-        int minTotal = Integer.MAX_VALUE;
 
-        List<Map<Item, Integer>> faltantesBasicos = getIngredientesBasicosFaltantesTodos(item, inv);
-
-        for (Map<Item, Integer> ingredientes : faltantesBasicos) {
-            int total = ingredientes.values().stream().mapToInt(i -> i).sum();
-            if (total < minTotal) {
-                minTotal = total;
-                mejor = ingredientes;
-                if (minTotal == 0)
-                    break;
-            }
-        }
-        return mejor;
+        return getIngredientesBasicosFaltantesTodos(item, inv).stream()
+                .min(Comparator.comparingInt(a -> a.values().stream().reduce(0, Integer::sum)))
+                .orElse(new HashMap<>());
     }
 
     /**
@@ -227,21 +215,9 @@ public class SistemaCrafteo {
         if(!item.esCrafteable())
             return null;
 
-        Map<Item, Integer> mejor = new HashMap<>();
-        int minTotal = Integer.MAX_VALUE;
-        List<Map<Item, Integer>> faltantesNivel1 = getIngredientesFaltantesTodos(item, inv);
-
-        for (Map<Item, Integer> ingredientes : faltantesNivel1) {
-            int total = ingredientes.values().stream().mapToInt(i -> i).sum();
-            if (total < minTotal) {
-                minTotal = total;
-                mejor = ingredientes;
-                if (minTotal == 0)
-                    break;
-            }
-        }
-
-        return mejor;
+        return getIngredientesFaltantesTodos(item, inv).stream()
+                .min(Comparator.comparingInt(a -> a.values().stream().reduce(0, Integer::sum)))
+                .orElse(new HashMap<>());
     }
 
     /**
@@ -293,15 +269,11 @@ public class SistemaCrafteo {
         if (!item.esCrafteable()) {
             return 0;
         }
-        int mejor = 0;
-        int n = item.getRecetas().size();
-        for (int i = 0; i < n; i++) {
-            int cant = getCantidadMaximaParaReceta(inv, item, i);
-            if (cant > mejor) {
-                mejor = cant;
-            }
-        }
-        return mejor;
+
+        return IntStream.range(0, item.getRecetas().size())
+                .map(i -> getCantidadMaximaParaReceta(inv, item, i))
+                .max()
+                .orElse(0);
     }
 
     /**

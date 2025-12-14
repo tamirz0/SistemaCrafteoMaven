@@ -46,11 +46,10 @@ public class OperacionesMap {
     }
 
     public static <T> Map<T, Integer> quitarKeysConValorCero(Map<T, Integer> dic){
-        Map<T, Integer> nuevoDic = new HashMap<T, Integer>();
-        nuevoDic.putAll(dic);
-        for (T t : dic.keySet()) {
-            nuevoDic.remove(t, 0);
-        }
+        if (dic == null) return new HashMap<>();
+
+        Map<T, Integer> nuevoDic = new HashMap<>(dic);
+        nuevoDic.values().removeIf(i -> i == 0);
         return nuevoDic;
     }
 
