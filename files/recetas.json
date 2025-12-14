@@ -1,0 +1,121 @@
+{
+  "hierro": {
+    "tipo": "basico",
+    "descripcion": "hierro"
+  },
+  "antorcha": {
+    "tipo": "crafteable",
+    "descripcion": "Fuente de luz",
+    "tiempo": 6,
+    "recetas": [
+      {
+        "ingredientes": { "palo": 2, "carbon": 1 },
+        "cantidadGenerada": 4
+      },
+      {
+        "ingredientes": { "palo": 1, "carbon": 1, "aceite": 1 },
+        "cantidadGenerada": 6,
+        "mesaRequerida": "mesa_alquimia"
+      }
+    ]
+  },
+  "carbon": {
+    "tipo": "basico",
+    "descripcion": "carbon"
+  },
+  "astilla": {
+    "tipo": "basico",
+    "descripcion": "astilla"
+  },
+  "madera": {
+    "tipo": "basico",
+    "descripcion": "madera"
+  },
+  "cuero": {
+    "tipo": "basico",
+    "descripcion": "cuero"
+  },
+  "escudo": {
+    "tipo": "crafteable",
+    "descripcion": "Protección defensiva",
+    "tiempo": 20,
+    "recetas": [
+      {
+        "ingredientes": { "madera": 40, "cuero": 30 },
+        "cantidadGenerada": 1,
+        "mesaRequerida": "mesa_carbonizo"
+      },
+      {
+        "ingredientes": { "madera": 6, "hierro": 2 },
+        "cantidadGenerada": 15
+      },
+      {
+        "ingredientes": { "madera": 4, "cuero mejorado": 5, "piedra": 1},
+        "cantidadGenerada": 10
+      }
+    ]
+  },
+  "cuero mejorado": {
+    "tipo": "crafteable",
+    "descripcion": "cuero reforzado",
+    "tiempo": 5,
+    "recetas": [
+      {
+        "ingredientes": { "cuero": 300, "piedra premium": 4, "palo": 2},
+        "cantidadGenerada": 2
+      },
+      {
+        "ingredientes": { "cuero": 6, "piedra": 1},
+        "cantidadGenerada": 2,
+        "mesaRequerida": "mesa_cuerina"
+      },
+      {
+        "ingredientes": { "cuero": 100, "hierro": 2},
+        "cantidadGenerada": 5
+      }
+    ]
+  },
+  "piedra premium": {
+    "tipo": "crafteable",
+    "descripcion": "piedra pero mejor",
+    "tiempo": 5,
+    "recetas": [
+      {
+        "ingredientes": { "piedra": 30, "madera": 85},
+        "cantidadGenerada": 4
+      },
+      {
+        "ingredientes": { "piedra": 3, "hierro": 4},
+        "cantidadGenerada": 3
+      }
+    ]
+  },
+  "palo": {
+    "tipo": "crafteable",
+    "descripcion": "palo",
+    "tiempo": 5,
+    "recetas": [
+      {
+        "ingredientes": { "madera": 20 },
+        "cantidadGenerada": 1
+      },
+      {
+        "ingredientes": { "madera": 1 , "astilla": 5},
+        "cantidadGenerada": 2
+      }
+    ]
+  },
+
+  "aceite": {
+    "tipo": "basico",
+    "descripcion": "aceite"
+  },
+  "piedra": {
+    "tipo": "basico",
+    "descripcion": "piedra"
+  },
+  "cristal_magico": {
+    "tipo": "basico",
+    "descripcion": "cristal_magico"
+  }
+}

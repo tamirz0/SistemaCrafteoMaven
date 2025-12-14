@@ -1,0 +1,10 @@
+{
+  "items": {
+    "madera": 6,
+    "cuero": 20,
+    "piedra": 10,
+    "hierro": 2,
+    "astilla": 10
+  },
+  "mesas": ["mesa_carbonizo", "mesa_cuerina"]
+}
