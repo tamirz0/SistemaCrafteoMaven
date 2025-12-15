@@ -34,15 +34,17 @@ public class OperacionesMap {
     }
 
     public static <T> Map<T, Integer> restarTodo(Map<T, Integer> mayor, Map<T, Integer> menor) {
-        Map<T, Integer> mapRet = new HashMap<>();
-        mapRet.putAll(mayor);
-        for (Map.Entry<T, Integer> entrada : mayor.entrySet()) {
-            int valorARestar = menor.getOrDefault(entrada.getKey(), 0);
-            int actual = entrada.getValue();
-            int nuevoValor = actual > valorARestar ? actual - valorARestar : 0;
-            mapRet.put(entrada.getKey(), nuevoValor);
-        }
-        return mapRet;
+        if(mayor == null || menor == null) return new HashMap<>();
+
+        Map<T, Integer> ret = new HashMap<>(mayor);
+
+        ret.replaceAll((item, cantidad) -> {
+            int m = menor.getOrDefault(item, 0);
+            return Math.max(0, cantidad - m);
+        });
+
+
+        return ret;
     }
 
     public static <T> Map<T, Integer> quitarKeysConValorCero(Map<T, Integer> dic){
