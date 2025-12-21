@@ -111,13 +111,13 @@ public class SistemaCrafteo {
         return historial;
     }
 
-    public Item buscarItem(String nombre) {
+    public Optional<Item> buscarItem(String nombre) {
         for (Item item : itemsRegistrados) {
             if (item.getNombre().equalsIgnoreCase(nombre)) {
-                return item;
+                return Optional.of(item);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     /////////////////////////////////////////////////////

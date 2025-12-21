@@ -1,5 +1,6 @@
 package sistema_crafteo.main;
 
+import sistema_crafteo.excepcion.ItemNoEncontradoException;
 import sistema_crafteo.integracion.GestorArchivo;
 import sistema_crafteo.inventario.Inventario;
 import sistema_crafteo.logica.SistemaCrafteo;
@@ -16,7 +17,7 @@ public class Main {
         Inventario miInventario;
         // DATOS DE ORIGEN
         miInventario = sistema.cargarDatos("files/recetas.json", "files/inventario.json");
-        Item escudo = sistema.buscarItem("escudo");
+        Item escudo = sistema.buscarItem("escudo").orElseThrow(() -> new ItemNoEncontradoException("El item escudo no existe"));
 
         System.out.println("===¿Que necesito para craftear un objeto? ===");
         for (int i = 0; i < escudo.getRecetas().size(); i++) {
@@ -47,11 +48,11 @@ public class Main {
         System.out.println("Inventario posterior: " + miInventario.getItems());
 
         System.out.println("\n===Mesas de trabajo + Recetas alternativas");
-        Item antorcha = sistema.buscarItem("antorcha");
+        Item antorcha = sistema.buscarItem("antorcha").orElseThrow();
         MesaDeTrabajo mesaAntorcha = antorcha.getReceta(1).getMesaRequerida();
-        miInventario.recolectarItem(sistema.buscarItem("madera"), 20);
-        miInventario.recolectarItem(sistema.buscarItem("carbon"), 1);
-        miInventario.recolectarItem(sistema.buscarItem("aceite"), 1);
+        miInventario.recolectarItem(sistema.buscarItem("madera").orElseThrow(() -> new ItemNoEncontradoException("El item madera no existe")), 20);
+        miInventario.recolectarItem(sistema.buscarItem("carbon").orElseThrow(() -> new ItemNoEncontradoException("El item carbon no existe")), 1);
+        miInventario.recolectarItem(sistema.buscarItem("aceite").orElseThrow(() -> new ItemNoEncontradoException("El item aceite no existe")), 1);
 
         System.out.println(
                 sistema.craftear(miInventario, antorcha, 1) == false ? "No pudo craftear Antorcha, no posee mesa"

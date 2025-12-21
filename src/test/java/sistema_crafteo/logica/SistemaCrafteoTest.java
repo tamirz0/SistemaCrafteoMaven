@@ -273,6 +273,16 @@ class SistemaCrafteoTest {
             assertEquals(esperado, actual);
         }
 
+        @Test
+        void buscarItem_itemExiste_encuentraCorrectamente(){
+            assertTrue(sistema.buscarItem("Espada").isPresent());
+        }
+
+        @Test
+        void buscarItem_itemNoExiste_devuelveOptionalVacio(){
+            assertTrue(sistema.buscarItem("no existe").isEmpty());
+        }
+
         private static ObjetoCrafteable getEspada() {
 
             IngredienteBasico madera = new IngredienteBasico("Madera", " ");
