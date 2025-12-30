@@ -41,7 +41,7 @@ class SistemaCrafteoTest {
             itemsMiInventario.put(metal, 5);
             itemsMiInventario.put(piedra, 2);
 
-            sistema.registrarItem(espada);
+            if(!sistema.registrarItem(espada)) assertFalse(false);
             sistema.registrarItem(new IngredienteBasico("Prueba", " "));
 
             Inventario miInventario = new Inventario();

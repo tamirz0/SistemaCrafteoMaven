@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class SistemaCrafteo {
-    private Set<Item> itemsRegistrados;
+    private final Set<Item> itemsRegistrados;
     private final HistorialCrafteo historial;
 
     public SistemaCrafteo() {
@@ -71,7 +71,7 @@ public class SistemaCrafteo {
 
     public Inventario cargarDatos(String pathRecetas, String pathInventario) {
         GestorArchivo gestor = new GestorArchivo(Paths.get(pathInventario), Paths.get(pathRecetas));
-        Inventario inventario = null;
+        Inventario inventario;
         try {
             Map<String, Item> items = gestor.cargarItems();
             for (Item item : items.values()) {
@@ -79,7 +79,7 @@ public class SistemaCrafteo {
             }
             inventario = gestor.cargarInventario(items);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error cargando datos", e);
         }
         return inventario;
     }
@@ -127,7 +127,7 @@ public class SistemaCrafteo {
             int upLote = cand.getCantidadGenerada();
             int lotes = (qty + upLote - 1) / upLote;
 
-            Map<Item, Integer> copia = new HashMap<>(simInv);;
+            Map<Item, Integer> copia = new HashMap<>(simInv);
             boolean ok = true;
             for (int i = 0; i < lotes; i++) {
                 if (!consumirRecursivo(cand, copia, invReal)) {
