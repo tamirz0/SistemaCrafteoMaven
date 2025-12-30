@@ -30,7 +30,7 @@ public class SistemaCrafteo {
 
     public List<Map<Item, Integer>> getIngredientesFaltantesTodos(Item item, Inventario inventario) {
         if (!item.esCrafteable()) {
-            return null;
+            return Collections.emptyList();
         }
 
         return item.getIngredientesTodos().stream()
@@ -43,7 +43,7 @@ public class SistemaCrafteo {
 
     public List<Map<Item, Integer>> getIngredientesBasicosFaltantesTodos(Item item, Inventario inventario) {
         if (!item.esCrafteable()) {
-            return null;
+            return Collections.emptyList();
         }
         List<Map<Item, Integer>> ret = new LinkedList<>();
         List<Map<Item, Integer>> ingredientesPorReceta = getIngredientesFaltantesTodos(item, inventario);
@@ -213,7 +213,7 @@ public class SistemaCrafteo {
      */
     public Map<Item, Integer> getFaltantesNivel1Minimos(Item item, Inventario inv) {
         if(!item.esCrafteable())
-            return null;
+            return Collections.emptyMap();
 
         return getIngredientesFaltantesTodos(item, inv).stream()
                 .min(Comparator.comparingInt(a -> a.values().stream().reduce(0, Integer::sum)))

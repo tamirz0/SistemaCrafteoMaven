@@ -1,9 +1,6 @@
 package sistema_crafteo.objeto;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public abstract class Item {
     protected final String nombre;
@@ -43,15 +40,15 @@ public abstract class Item {
     }
 
     public Map<Item, Integer> getIngredientes(){
-        return null;
+        return Collections.emptyMap();
     }
 
     public Map<Item, Integer> getIngredientes(int numReceta){
-        return null;
+        return Collections.emptyMap();
     }
 
     public List<Map<Item, Integer>> getIngredientesTodos(){
-        return null;
+        return Collections.emptyList();
     }
 
     public Map<Item, Integer> getIngredientesBasicos(){
@@ -83,7 +80,7 @@ public abstract class Item {
     }
 
     public List<Receta> getRecetas() {
-        return null;
+        return Collections.emptyList();
     }
 
 
@@ -92,7 +89,7 @@ public abstract class Item {
     }
 
     public List<Receta> getRecetaTodo(){
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

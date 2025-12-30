@@ -75,7 +75,7 @@ class SistemaCrafteoTest {
         @Test
         void getIngredientesFaltantes_itemNoCrafteable_retornaNull() {
             IngredienteBasico a = new IngredienteBasico("prueba", "");
-            assertNull(sistema.getFaltantesNivel1Minimos(a, miInventario));
+            assertTrue(sistema.getFaltantesNivel1Minimos(a, miInventario).isEmpty());
         }
 
         @Test
